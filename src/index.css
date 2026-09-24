@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian-green: #101815;
+  --color-pine: #1C3028;
+  --color-moss: #53665A;
+  --color-linen: #EAE5D8;
+  --color-bone: #F5F1E7;
+  --color-muted-copper: #9B7657;
+
+  --font-serif: var(--font-serif-active, "Cormorant Garamond", Georgia, Cambria, serif);
+  --font-sans: var(--font-sans-active, "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+:root {
+  --color-obsidian-green: #101815;
+  --color-pine: #1C3028;
+  --color-moss: #53665A;
+  --color-linen: #EAE5D8;
+  --color-bone: #F5F1E7;
+  --color-muted-copper: #9B7657;
+
+  /* Primary Default Font Pair: Cormorant Garamond + Plus Jakarta Sans */
+  --font-serif-active: "Cormorant Garamond", Georgia, Cambria, serif;
+  --font-sans-active: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-serif-active);
+  --font-sans: var(--font-sans-active);
+}
+
+/* Preset 1 (Default): Monograph Editorial — Warm Quiet Luxury */
+[data-font-preset="monograph"] {
+  --font-serif-active: "Cormorant Garamond", Georgia, Cambria, serif;
+  --font-sans-active: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Preset 2: Lapidary Roman — Chiseled Stone & Monumental Presence */
+[data-font-preset="lapidary"] {
+  --font-serif-active: "Cinzel", Georgia, serif;
+  --font-sans-active: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Preset 3: Warm Contemporary — Nordic/Japanese Architectural Sanctuary */
+[data-font-preset="warm-contemporary"] {
+  --font-serif-active: "Tenor Sans", sans-serif;
+  --font-sans-active: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Preset 4: Milanese Editorial — High-Contrast Fashion & Modernism */
+[data-font-preset="milanese-editorial"] {
+  --font-serif-active: "Bodoni Moda", Georgia, Cambria, serif;
+  --font-sans-active: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html {
+  font-family: var(--font-sans-active);
+  background-color: #101815;
+  color: #F5F1E7;
+  letter-spacing: -0.01em;
+}
+
+.font-serif {
+  font-family: var(--font-serif-active) !important;
+}
+
+.font-sans {
+  font-family: var(--font-sans-active) !important;
+}
+
+/* Custom scrollbar styling in dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #101815;
+}
+::-webkit-scrollbar-thumb {
+  background: #1C3028;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #53665A;
+}
+
+/* Accessible reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
