@@ -1,115 +1,78 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ASSETS } from '../data/assets';
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 interface FinalCTAProps {
-  onOpenBooking: () => void;
+  onOpenProjectModal: () => void;
 }
 
-export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenBooking }) => {
+export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenProjectModal }) => {
   return (
-    <section id="contact" className="relative w-full min-h-[90vh] md:min-h-screen flex flex-col justify-between overflow-hidden bg-[#0D0D0D]">
-      {/* Background Editorial Visual */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={ASSETS.finalCta.poster}
-          alt={ASSETS.finalCta.alt}
-          className="w-full h-full object-cover scale-[1.01]"
-        />
-        <div className="absolute inset-0 bg-black/65" />
-      </div>
+    <section id="contact" className="py-28 sm:py-40 bg-[#100B14] relative border-t border-[#34283A] bg-editorial-grid overflow-hidden">
+      {/* Subtle restrained light focus */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[540px] h-[540px] rounded-full bg-[#D8B4FE]/[0.025] blur-[100px] pointer-events-none" />
 
-      {/* Top spacing buffer */}
-      <div className="pt-20" />
-
-      {/* Center Cinematic Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 text-center flex flex-col items-center my-auto">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 relative z-10 text-center flex flex-col items-center">
+        {/* Label */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-4"
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-2 mb-6"
         >
-          <span className="text-xs tracking-[0.38em] uppercase text-[#C8A98A] font-medium">
-            RESERVATION
+          <span className="w-1.5 h-1.5 rounded-full bg-[#D8B4FE]" />
+          <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#A99EAC]">
+            INQUIRY & COMMISSIONS
           </span>
         </motion.div>
 
+        {/* Huge Heading */}
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="font-serif-editorial text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light uppercase leading-[0.95] tracking-tight text-[#F4F1EC] mb-6 text-balance"
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display font-bold text-[clamp(2.5rem,7vw,5.5rem)] leading-[0.95] tracking-[-0.03em] text-[#F5F0F5] mb-8 max-w-3xl"
         >
-          YOUR NEXT LOOK
-          <br />
-          <span className="italic font-normal text-[#C8A98A]">STARTS HERE.</span>
+          READY TO BUILD <br />
+          WHAT'S <span className="text-[#D8B4FE]">NEXT?</span>
         </motion.h2>
 
+        {/* Supporting Copy */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-md md:max-w-lg text-sm sm:text-base md:text-lg text-[#A9A39B] font-light leading-relaxed mb-10 text-balance"
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-base sm:text-lg lg:text-xl text-[#A99EAC] max-w-xl leading-relaxed mb-12 font-normal"
         >
-          “Let’s create something that feels unmistakably you.”
+          Have an idea, a business, or a project in mind? <br className="hidden sm:inline" />
+          Let's turn it into something real.
         </motion.p>
 
+        {/* Action Button */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.9, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
           <button
-            onClick={onOpenBooking}
-            className="group px-9 py-4 bg-[#F4F1EC] text-[#0D0D0D] text-xs font-semibold tracking-[0.25em] uppercase hover:bg-[#C8A98A] transition-all duration-300 inline-flex items-center gap-4 active:scale-[0.98] shadow-2xl"
+            onClick={onOpenProjectModal}
+            data-cursor="cta"
+            className="inline-flex items-center gap-3 text-sm sm:text-base font-display font-semibold tracking-wider text-[#F5F0F5] bg-[#291D2D] hover:bg-[#34283A] border border-[#34283A] hover:border-[#D8B4FE] px-8 sm:px-10 py-4 sm:py-5 rounded-sm transition-all duration-300 group shadow-lg"
           >
-            <span>BOOK AN APPOINTMENT</span>
-            <ArrowRight size={16} className="transform group-hover:translate-x-1.5 transition-transform duration-300" />
+            <span>START A PROJECT</span>
+            <ArrowUpRight className="w-5 h-5 text-[#D8B4FE] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
           </button>
         </motion.div>
-      </div>
 
-      {/* Bottom Bar: Location & Quick Links */}
-      <div className="relative z-10 max-w-7xl w-full mx-auto px-6 md:px-12 pb-10 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs tracking-[0.24em] uppercase text-[#A9A39B] border-t border-[rgba(244,241,236,0.1)] pt-8">
-        <div className="flex items-center gap-3">
-          <span className="text-[#F4F1EC] font-medium tracking-[0.28em]">LUMIÈRE</span>
-          <span>·</span>
-          <span>COIMBATORE</span>
-        </div>
-
-        <div className="flex items-center gap-6">
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#F4F1EC] transition-colors"
-          >
-            Instagram
-          </a>
-          <span>·</span>
-          <a
-            href="https://wa.me/919876543210"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#C8A98A] transition-colors"
-          >
-            WhatsApp
-          </a>
-          <span>·</span>
-          <a
-            href="https://maps.google.com/?q=Race+Course+Coimbatore"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#F4F1EC] transition-colors"
-          >
-            Maps
-          </a>
+        {/* Direct contact footnote */}
+        <div className="mt-14 text-xs font-mono text-[#A99EAC]/70 flex flex-wrap items-center justify-center gap-6">
+          <span>DIRECT INQUIRIES: STUDIO@SAZEON.COM</span>
+          <span className="text-[#34283A]">/</span>
+          <span>ESTIMATED RESPONSE: &lt; 24H</span>
         </div>
       </div>
     </section>

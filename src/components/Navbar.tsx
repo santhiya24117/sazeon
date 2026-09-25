@@ -1,222 +1,185 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Menu, X, MessageSquare } from 'lucide-react';
+import { MagneticButton } from './MagneticButton';
+import { SazeonLogo } from './SazeonLogo';
 
 interface NavbarProps {
-  onOpenBooking?: () => void;
+  onOpenProjectModal: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
-  const [scrolled, setScrolled] = useState(false);
+export const Navbar: React.FC<NavbarProps> = ({ onOpenProjectModal }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setIsScrolled(window.scrollY > 30);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile drawer on route change
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [location.pathname]);
-
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [mobileMenuOpen]);
-
   const navLinks = [
-    { name: 'HOME', path: '/' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'SERVICES', path: '/services' },
-    { name: 'GALLERY', path: '/gallery' },
-    { name: 'CONTACT', path: '/contact' },
+    { label: 'WORK', href: '#work' },
+    { label: 'SERVICES', href: '#services' },
+    { label: 'PROCESS', href: '#process' },
+    { label: 'ABOUT', href: '#difference' },
   ];
+
+  const handleNavClick = (href: string) => {
+    setMobileMenuOpen(false);
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-          scrolled
-            ? 'bg-[#0D0D0D]/90 backdrop-blur-md border-b border-[rgba(244,241,236,0.12)] py-4 shadow-2xl'
-            : 'bg-transparent py-6 md:py-8'
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+          isScrolled
+            ? 'bg-[#151311]/92 backdrop-blur-md border-b border-[#332D28] py-3.5 shadow-lg shadow-black/40'
+            : 'bg-transparent border-b border-[#332D28]/40 py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          {/* Brand Logo */}
-          <Link
-            to="/"
-            className="group flex flex-col items-start focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C8A98A]"
-            aria-label="LUMIÈRE Home"
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 flex items-center justify-between">
+          {/* Official SAZEON Logo: Faceted Origami S + Wordmark */}
+          <a
+            href="#"
+            className="group focus-visible:outline-none flex items-center py-1"
+            aria-label="SAZEON Home"
           >
-            <span className="font-serif-editorial text-2xl md:text-3xl tracking-[0.24em] text-[#F4F1EC] uppercase transition-colors duration-300 group-hover:text-[#C8A98A]">
-              LUMIÈRE
-            </span>
-            <span className="text-[8px] tracking-[0.3em] uppercase text-[#A9A39B] -mt-0.5 group-hover:text-[#C8A98A]/80 transition-colors">
-              COIMBATORE
-            </span>
-          </Link>
+            <SazeonLogo height={38} />
+          </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-10">
-            <nav className="flex items-center gap-8 text-[11px] tracking-[0.24em] font-medium text-[#A9A39B]">
-              {navLinks.map((link) => (
-                <NavLink
-                  key={link.name}
-                  to={link.path}
-                  end={link.path === '/'}
-                  className={({ isActive }) =>
-                    `transition-colors duration-200 relative py-1 focus-visible:outline-none focus-visible:text-[#C8A98A] ${
-                      isActive
-                        ? 'text-[#F4F1EC] font-semibold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:bg-[#C8A98A]'
-                        : 'hover:text-[#F4F1EC]'
-                    }`
-                  }
-                >
-                  {link.name}
-                </NavLink>
-              ))}
-            </nav>
+          {/* Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-[13px] font-display font-medium tracking-widest text-[#A8A198]">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(link.href);
+                }}
+                className="hover:text-[#F5F1E8] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#FF7043] hover:after:w-full after:transition-all after:duration-200"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
 
-            {/* Outlined champagne BOOK button */}
-            <Link
-              to="/book"
-              onClick={() => {
-                if (onOpenBooking && location.pathname === '/book') {
-                  onOpenBooking();
-                }
-              }}
-              className="px-5 py-2 text-[11px] font-medium tracking-[0.22em] uppercase text-[#C8A98A] border border-[#C8A98A]/50 rounded-none hover:border-[#C8A98A] hover:bg-[#C8A98A] hover:text-[#0D0D0D] transition-all duration-300 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C8A98A]"
+          {/* Action CTAs */}
+          <div className="flex items-center gap-4">
+            <MagneticButton
+              onClick={onOpenProjectModal}
+              dataCursor="cta"
+              strength={0.25}
+              className="hidden sm:inline-flex items-center gap-2 text-xs font-display font-semibold tracking-wider text-[#F5F1E8] bg-[#1D1A17] hover:bg-[#25211D] border border-[#332D28] hover:border-[#FF7043] px-4 py-2.5 rounded-sm transition-all duration-200 group"
             >
-              BOOK
-            </Link>
-          </div>
+              <span>START A PROJECT</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#FF7043] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+            </MagneticButton>
 
-          {/* Mobile Right Controls: Book + Hamburger */}
-          <div className="flex lg:hidden items-center gap-3">
-            <Link
-              to="/book"
-              className="px-3.5 py-1.5 text-[10px] font-medium tracking-[0.2em] uppercase text-[#C8A98A] border border-[#C8A98A]/60 rounded-none active:bg-[#C8A98A] active:text-[#0D0D0D]"
-            >
-              BOOK
-            </Link>
+            {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-[#F4F1EC] hover:text-[#C8A98A] transition-colors focus-visible:outline-none"
+              className="md:hidden flex items-center gap-1.5 text-xs font-display font-semibold tracking-widest text-[#F5F1E8] border border-[#332D28] bg-[#1D1A17] px-3 py-2 rounded-sm"
               aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
+              aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              <span>{mobileMenuOpen ? 'CLOSE' : 'MENU'}</span>
+              {mobileMenuOpen ? (
+                <X className="w-3.5 h-3.5 text-[#FF7043]" />
+              ) : (
+                <Menu className="w-3.5 h-3.5 text-[#FF7043]" />
+              )}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Fullscreen Mobile Navigation Overlay */}
+      {/* Full-screen Mobile Navigation Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 bg-[#0D0D0D] flex flex-col justify-between px-8 py-10 lg:hidden overflow-y-auto"
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-30 bg-[#0C0B0A] flex flex-col justify-between p-8 pt-24 md:hidden overflow-y-auto"
           >
-            {/* Top Bar inside Overlay */}
-            <div className="flex items-center justify-between border-b border-[rgba(244,241,236,0.12)] pb-6">
-              <Link
-                to="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex flex-col items-start"
-              >
-                <span className="font-serif-editorial text-2xl tracking-[0.25em] text-[#F4F1EC]">
-                  LUMIÈRE
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center justify-between pb-4 border-b border-[#332D28]/60">
+                <SazeonLogo height={34} />
+                <span className="text-[11px] font-mono tracking-widest text-[#FF7043] uppercase">
+                  Studio
                 </span>
-                <span className="text-[8px] tracking-[0.3em] uppercase text-[#A9A39B]">
-                  COIMBATORE · EST. 2026
-                </span>
-              </Link>
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-[#A9A39B] hover:text-[#F4F1EC] transition-colors"
-                aria-label="Close menu"
-              >
-                <X size={26} />
-              </button>
+              </div>
+              <div className="flex flex-col gap-4 font-display">
+                {navLinks.map((link, idx) => (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 * idx, duration: 0.2 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link.href);
+                    }}
+                    className="text-3xl font-bold tracking-tight text-[#F5F1E8] hover:text-[#FF7043] transition-colors py-1 flex items-center justify-between border-b border-[#332D28]/60"
+                  >
+                    <span>{link.label}</span>
+                    <span className="text-xs font-mono text-[#FF7043]">0{idx + 1}</span>
+                  </motion.a>
+                ))}
+                <motion.a
+                  href="#contact"
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.25, duration: 0.2 }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick('#contact');
+                  }}
+                  className="text-3xl font-bold tracking-tight text-[#F5F1E8] hover:text-[#FF7043] transition-colors py-1 flex items-center justify-between border-b border-[#332D28]/60"
+                >
+                  <span>CONTACT</span>
+                  <span className="text-xs font-mono text-[#FF7043]">05</span>
+                </motion.a>
+              </div>
             </div>
 
-            {/* Menu Links */}
-            <nav className="flex flex-col gap-6 py-10">
-              {navLinks.map((link, idx) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * idx, duration: 0.35 }}
-                >
-                  <NavLink
-                    to={link.path}
-                    end={link.path === '/'}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={({ isActive }) =>
-                      `font-serif-editorial text-3xl sm:text-4xl tracking-wider transition-colors flex items-center justify-between ${
-                        isActive ? 'text-[#C8A98A]' : 'text-[#F4F1EC] hover:text-[#C8A98A]'
-                      }`
-                    }
-                  >
-                    <span>{link.name}</span>
-                    <ArrowUpRight size={20} className="text-[#A9A39B]/60" />
-                  </NavLink>
-                </motion.div>
-              ))}
-
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.25, duration: 0.35 }}
+            <div className="flex flex-col gap-3 pt-8 border-t border-[#332D28]">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenProjectModal();
+                }}
+                className="w-full flex items-center justify-center gap-2 text-sm font-display font-semibold tracking-wider text-[#0C0B0A] bg-[#FF7043] hover:bg-[#FF9A78] py-3.5 rounded-sm transition-colors shadow-md"
               >
-                <NavLink
-                  to="/book"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="font-serif-editorial text-3xl sm:text-4xl tracking-wider text-[#C8A98A] flex items-center justify-between"
-                >
-                  <span>RESERVATIONS</span>
-                  <ArrowUpRight size={20} className="text-[#C8A98A]" />
-                </NavLink>
-              </motion.div>
-            </nav>
+                <span>START A PROJECT</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
 
-            {/* Bottom Actions inside Mobile Menu */}
-            <div className="pt-6 border-t border-[rgba(244,241,236,0.12)] flex flex-col gap-4">
-              <Link
-                to="/book"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-4 text-xs font-semibold tracking-[0.25em] uppercase text-[#0D0D0D] bg-[#C8A98A] hover:bg-[#d5bba0] transition-colors text-center"
+              <a
+                href="https://wa.me/917358357933?text=Hi%20SAZEON%2C%20I'd%20like%20to%20discuss%20a%20project."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 text-sm font-display font-semibold tracking-wider text-[#F5F1E8] bg-[#1D1A17] border border-[#332D28] py-3 rounded-sm hover:border-[#FF7043] transition-colors"
               >
-                BOOK AN EXPERIENCE
-              </Link>
+                <MessageSquare className="w-4 h-4 text-[#FF7043]" />
+                <span>CHAT ON WHATSAPP ↗</span>
+              </a>
 
-              <div className="flex justify-between items-center text-xs tracking-widest text-[#A9A39B] pt-2">
-                <span>RACE COURSE, COIMBATORE</span>
-                <a
-                  href="https://wa.me/919876543210"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#C8A98A] underline underline-offset-4"
-                >
-                  CONCIERGE
+              <div className="flex items-center justify-between text-xs font-mono text-[#A8A198] pt-3">
+                <span>SAZEON STUDIO</span>
+                <a href="mailto:sazeoncontact@gmail.com" className="hover:text-[#FF7043]">
+                  sazeoncontact@gmail.com
                 </a>
               </div>
             </div>

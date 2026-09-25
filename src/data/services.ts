@@ -1,84 +1,52 @@
-import { ASSETS } from './assets';
-
 export interface ServiceItem {
   id: string;
   number: string;
   title: string;
-  subtitle: string;
   description: string;
-  subServices: string[];
-  duration: string;
-  startingPrice: string;
-  image: string;
+  deliverables: string[];
 }
 
-export const SERVICES_DATA: ServiceItem[] = [
+export const servicesData: ServiceItem[] = [
   {
-    id: 'hair',
+    id: 'business-websites',
     number: '01',
-    title: 'HAIR',
-    subtitle: 'CUT · COLOUR · STYLE',
-    description: 'Precision architecture tailored to your bone structure, hair fabric, and lifestyle. From dimensional French balayage to couture Japanese silk smoothing.',
-    subServices: [
-      'Bespoke Editorial Cut & Sculpt',
-      'Dimensional Balayage & Gloss Melting',
-      'Japanese Caviar & Keratin Infusion',
-      'Sculptural Updos & Fashion Editorial Finish',
-      'Scalp Dermabrasion & Follicle Therapy',
-    ],
-    duration: '60 – 180 min',
-    startingPrice: '₹3,500',
-    image: ASSETS.services.hair,
+    title: 'BUSINESS WEBSITES',
+    description: 'Modern, responsive websites built around your business.',
+    deliverables: ['Custom Architecture', 'Mobile-Responsive', 'Fast Load Times', 'CMS Ready'],
   },
   {
-    id: 'skin',
+    id: 'landing-pages',
     number: '02',
-    title: 'SKIN',
-    subtitle: 'FACIALS · TREATMENTS',
-    description: 'Cellular rejuvenation combining clinical European biotech with restorative botanical lymphatic draining. Non-invasive, luminous, skin-barrier perfecting.',
-    subServices: [
-      'LUMIÈRE Signature Cellular Hydra-Infusion',
-      'Cryo-Sculpt & Microcurrent Firming',
-      'Enzymatic Resurfacing & Peel Protocol',
-      'High-Frequency Oxygen Detox Therapy',
-      'Aromatic Lymphatic Facial Contouring',
-    ],
-    duration: '75 – 120 min',
-    startingPrice: '₹4,800',
-    image: ASSETS.services.skin,
+    title: 'LANDING PAGES',
+    description: 'Focused digital experiences designed to communicate clearly and drive action.',
+    deliverables: ['High-Conversion Hierarchy', 'Performance-Tuned', 'Clear Value Narrative'],
   },
   {
-    id: 'beauty',
+    id: 'ecommerce-websites',
     number: '03',
-    title: 'BEAUTY',
-    subtitle: 'MAKEUP · BROWS',
-    description: 'The art of natural elevation. Redefining your distinctive facial features with micro-feathered brows, bespoke tinting, and luminous skin-first makeup.',
-    subServices: [
-      'Bespoke Red Carpet & Gala Makeup',
-      'High-Definition Brow Micro-Lamination',
-      'Keratin Lash Lift & Lash Tinting',
-      'Airbrush Complexion Artistry',
-      'Personal Makeup Wardrobe Masterclass',
-    ],
-    duration: '45 – 90 min',
-    startingPrice: '₹2,800',
-    image: ASSETS.services.beauty,
+    title: 'E-COMMERCE WEBSITES',
+    description: 'Online stores designed for smooth browsing and buying.',
+    deliverables: ['Product Discovery', 'Seamless Checkout Flows', 'Catalog Structuring'],
   },
   {
-    id: 'rituals',
+    id: 'logo-design',
     number: '04',
-    title: 'RITUALS',
-    subtitle: 'SCALP · SENSORY WELLNESS',
-    description: 'Bespoke restorative rituals combining Ayurvedic scalp botanicals, Japanese head spa hydrotherapy, and acoustic frequency meditation.',
-    subServices: [
-      'Japanese Hydro-Spa Scalp Purifying Ceremony',
-      'Botanical Trichology Infusion & Follicle Reset',
-      'Warm Obsidian Stone Neck & Shoulder Release',
-      'Diamond Dust & Caviar Hair Gloss Mask',
-      'Acoustic Sound Frequency Scalp Rebalance',
-    ],
-    duration: '60 – 120 min',
-    startingPrice: '₹4,200',
-    image: ASSETS.services.rituals,
+    title: 'LOGO DESIGN',
+    description: 'Distinctive visual identities that make brands recognizable.',
+    deliverables: ['Vector Wordmarks', 'Iconic Monograms', 'Brand Guidelines', 'Typography Scale'],
+  },
+  {
+    id: 'business-card-design',
+    number: '05',
+    title: 'BUSINESS CARD DESIGN',
+    description: 'Professional business cards that extend your brand beyond the screen.',
+    deliverables: ['Tactile Print Layouts', 'Foil & Emboss Specs', 'Digital V-Card Integration'],
+  },
+  {
+    id: 'poster-design',
+    number: '06',
+    title: 'POSTER DESIGN',
+    description: 'Eye-catching digital and print posters designed to communicate with impact.',
+    deliverables: ['High-Resolution Print', 'Social Campaign Formats', 'Editorial Typography'],
   },
 ];

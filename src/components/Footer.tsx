@@ -1,117 +1,121 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
+import { SazeonLogo } from './SazeonLogo';
 
 export const Footer: React.FC = () => {
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const navItems = [
+    { label: 'WORK', id: 'work' },
+    { label: 'SERVICES', id: 'services' },
+    { label: 'PROCESS', id: 'process' },
+    { label: 'ABOUT', id: 'difference' },
+    { label: 'CONTACT', id: 'contact' },
+  ];
+
+  const socialLinks = [
+    {
+      label: 'WHATSAPP',
+      href: "https://wa.me/917358357933?text=Hi%20SAZEON%2C%20I%27d%20like%20to%20discuss%20a%20project.",
+      cursor: 'chat',
+    },
+    {
+      label: 'INSTAGRAM',
+      href: 'https://www.instagram.com/santhiya_v24/?hl=en',
+      cursor: 'open',
+    },
+    {
+      label: 'LINKEDIN',
+      href: 'https://www.linkedin.com/in/santhiya-v-558b13214',
+      cursor: 'open',
+    },
+    {
+      label: 'EMAIL',
+      href: 'mailto:sazeoncontact@gmail.com',
+      cursor: 'email',
+    },
+  ];
+
   return (
-    <footer className="bg-[#0A0A0A] text-[#F4F1EC] pt-20 pb-12 border-t border-[rgba(244,241,236,0.08)]">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-[rgba(244,241,236,0.08)]">
-          {/* Brand & Tagline */}
+    <footer className="bg-[#0C0B0A] border-t border-[#332D28] pt-16 pb-12 text-[#A8A198]">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-[#332D28]">
+          {/* Brand Col */}
           <div className="md:col-span-6 flex flex-col justify-between">
             <div>
-              <Link to="/" className="inline-block group">
-                <h3 className="font-serif-editorial text-3xl md:text-4xl tracking-[0.25em] uppercase text-[#F4F1EC] group-hover:text-[#C8A98A] transition-colors mb-2">
-                  LUMIÈRE
-                </h3>
-              </Link>
-              <p className="font-serif-editorial italic text-lg text-[#C8A98A]">
-                Beauty, redefined.
+              <div className="mb-4">
+                <SazeonLogo height={42} />
+              </div>
+              <p className="text-sm font-display text-[#FF7043] tracking-wide font-medium">
+                BUILT FOR WHAT'S NEXT.
               </p>
             </div>
-            <p className="mt-8 text-xs text-[#A9A39B] max-w-sm leading-relaxed font-light">
-              Race Course Road, Coimbatore, Tamil Nadu 641018, India.
-              <br />
-              Tuesday – Sunday: 10:00 – 20:00 · Private Appointments Recommended.
-            </p>
+
+            <div className="mt-8">
+              <p className="text-xs text-[#A8A198]/70 max-w-sm leading-relaxed font-mono mb-3">
+                Independent digital and creative studio crafting bespoke web experiences, e-commerce stores, and high-impact visual design systems.
+              </p>
+              <a
+                href="mailto:sazeoncontact@gmail.com"
+                data-cursor="email"
+                className="text-xs font-mono text-[#F5F1E8] hover:text-[#FF7043] transition-colors"
+              >
+                sazeoncontact@gmail.com
+              </a>
+            </div>
           </div>
 
           {/* Navigation Links */}
-          <div className="md:col-span-3 flex flex-col gap-3 text-xs tracking-[0.22em] uppercase font-medium">
-            <span className="text-[#C8A98A] text-[10px] tracking-[0.3em] mb-2 block">
-              NAVIGATION
+          <div className="md:col-span-3">
+            <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#F5F1E8] block mb-4">
+              INDEX
             </span>
-            <Link
-              to="/"
-              className="text-[#A9A39B] hover:text-[#F4F1EC] transition-colors"
-            >
-              HOME
-            </Link>
-            <Link
-              to="/about"
-              className="text-[#A9A39B] hover:text-[#F4F1EC] transition-colors"
-            >
-              ABOUT
-            </Link>
-            <Link
-              to="/services"
-              className="text-[#A9A39B] hover:text-[#F4F1EC] transition-colors"
-            >
-              SERVICES
-            </Link>
-            <Link
-              to="/gallery"
-              className="text-[#A9A39B] hover:text-[#F4F1EC] transition-colors"
-            >
-              GALLERY
-            </Link>
-            <Link
-              to="/contact"
-              className="text-[#A9A39B] hover:text-[#F4F1EC] transition-colors"
-            >
-              CONTACT
-            </Link>
-            <Link
-              to="/book"
-              className="text-[#C8A98A] hover:text-[#F4F1EC] transition-colors pt-1"
-            >
-              RESERVATIONS
-            </Link>
+            <ul className="space-y-2.5 font-display text-xs tracking-wider">
+              {navItems.map((item) => (
+                <li key={item.label}>
+                  <button
+                    onClick={() => scrollTo(item.id)}
+                    className="hover:text-[#F5F1E8] hover:translate-x-1 transition-all duration-200"
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Social & Connect */}
-          <div className="md:col-span-3 flex flex-col gap-3 text-xs tracking-[0.22em] uppercase font-medium">
-            <span className="text-[#C8A98A] text-[10px] tracking-[0.3em] mb-2 block">
+          {/* Social Links */}
+          <div className="md:col-span-3">
+            <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#F5F1E8] block mb-4">
               CONNECT
             </span>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#A9A39B] hover:text-[#F4F1EC] transition-colors"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://wa.me/919876543210"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#A9A39B] hover:text-[#C8A98A] transition-colors"
-            >
-              WhatsApp Concierge
-            </a>
-            <a
-              href="https://maps.google.com/?q=Race+Course+Coimbatore"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#A9A39B] hover:text-[#F4F1EC] transition-colors"
-            >
-              Google Maps
-            </a>
-            <a
-              href="tel:+919876543210"
-              className="text-[#A9A39B] hover:text-[#F4F1EC] transition-colors"
-            >
-              Direct: +91 98765 43210
-            </a>
+            <ul className="space-y-2.5 font-display text-xs tracking-wider">
+              {socialLinks.map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-cursor={item.cursor}
+                    className="hover:text-[#F5F1E8] inline-flex items-center gap-1.5 transition-colors group"
+                  >
+                    <span>{item.label}</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#332D28] group-hover:text-[#FF7043] transition-colors" />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Bottom Copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] tracking-widest text-[#A9A39B]/70">
-          <span>© 2026 LUMIÈRE. ALL RIGHTS RESERVED.</span>
-          <span className="mt-2 sm:mt-0 text-[10px] tracking-[0.2em] text-[#A9A39B]/50 uppercase">
-            HAUTE BEAUTY STUDIO · RACE COURSE, COIMBATORE
-          </span>
+        {/* Bottom Line */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#A8A198]/60">
+          <span>© 2026 SAZEON. ALL RIGHTS RESERVED.</span>
         </div>
       </div>
     </footer>
